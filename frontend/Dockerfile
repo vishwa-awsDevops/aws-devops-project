@@ -1,5 +1,6 @@
 # Step 1: Build Stage
-FROM node:18-alpine AS build
+# Change this line from node:18-alpine to node:20-alpine
+FROM node:20-alpine AS build
 WORKDIR /app
 
 # Copy package files and install dependencies
