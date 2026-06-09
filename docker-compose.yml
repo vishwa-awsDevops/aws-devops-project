@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # 1. Backend Service Configuration
+  backend:
+    image: vishwask10/netflix-backend:1.0.1
+    container_name: netflix-backend
+    ports:
+      - "5000:5000"  # Exposes backend API to host port 5000 (Adjust if your backend uses a different port)
+    networks:
+      - netflix-network
+    restart: always
+
+  # 2. Frontend Service Configuration
+  frontend:
+    image: vishwask10/netflix-frontend:1.0.1
+    container_name: netflix-frontend
+    ports:
+      - "9000:80"    # Maps host port 9000 to Nginx port 80 inside the container
+    depends_on:
+      - backend      # Ensures backend starts up before the frontend does
+    networks:
+      - netflix-network
+    restart: always
+
+# 3. Shared Network Definition
+networks:
+  netflix-network:
+    driver: bridge
